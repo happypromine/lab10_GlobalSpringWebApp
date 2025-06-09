@@ -1,0 +1,17 @@
+com\webapp\springwebapp\controller\PhoneNumberController.class
+com\webapp\springwebapp\model\User.class
+com\webapp\springwebapp\controller\UserRestController.class
+com\webapp\springwebapp\repository\PhoneNumberRepository.class
+com\webapp\springwebapp\controller\PhoneNumberRestController.class
+com\webapp\springwebapp\controller\UserController.class
+com\webapp\springwebapp\service\PhonePlanService.class
+com\webapp\springwebapp\model\PhonePlan.class
+com\webapp\springwebapp\config\SecurityConfig.class
+com\webapp\springwebapp\controller\PhonePlanRestController.class
+com\webapp\springwebapp\model\PhoneNumber.class
+com\webapp\springwebapp\controller\PhonePlanController.class
+com\webapp\springwebapp\service\PhoneNumberService.class
+com\webapp\springwebapp\service\UserService.class
+com\webapp\springwebapp\repository\PhonePlanRepository.class
+com\webapp\springwebapp\SpringWebAppApplication.class
+com\webapp\springwebapp\repository\UserRepository.class
