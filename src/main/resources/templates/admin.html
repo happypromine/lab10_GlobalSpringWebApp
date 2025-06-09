@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Админ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #9751e1);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+        }
+
+        .admin-container {
+            margin-top: 50px;
+            background-color: #f1e9ff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 700px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #000000;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #cccccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #e0e0e0;
+        }
+
+        :root {
+            --megafon-purple: #7113d7;
+            --megafon-purple-dark: #5a0fb1;
+            --megafon-green: #2dc26b;
+        }
+
+        .btn-primary {
+            background-color: var(--megafon-purple);
+            border-color: var(--megafon-purple);
+        }
+
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: var(--megafon-purple-dark);
+            border-color: var(--megafon-purple-dark);
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: #f1e9ff !important;
+            border-color: var(--megafon-purple) var(--megafon-purple) #eee4ff !important;
+            color: var(--megafon-purple);
+            font-weight: 600;
+        }
+
+
+        .nav-tabs .nav-link {
+            color: var(--megafon-purple);
+            border-color: transparent;
+        }
+
+        .nav-tabs .nav-link:hover {
+            color: var(--megafon-purple-dark);
+        }
+    </style>
+</head>
+<body>
+<div class="admin-container">
+    <h2>Админ-панель</h2>
+
+    <ul class="nav nav-tabs" id="adminTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="users-tab" data-bs-toggle="tab" href="#users" role="tab">Пользователи</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="plans-tab" data-bs-toggle="tab" href="#plans" role="tab">Тарифные планы</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="numbers-tab" data-bs-toggle="tab" href="#numbers" role="tab">Номера</a>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-3" id="adminTabContent">
+
+        <!-- Пользователи -->
+        <div class="tab-pane fade show active" id="users" role="tabpanel">
+            <div class="d-flex justify-content-end mb-2">
+                <a href="/admin/users/add" class="btn btn-success btn-sm">Добавить пользователя</a>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th><th>Имя</th><th>Email</th><th>Роль</th><th>Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}" th:if="${!user.deleted}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td>
+                        <a th:href="@{'/admin/edit-user/' + ${user.id}}" class="btn btn-sm btn-primary">Редактировать</a>
+                        <form th:action="@{'/admin/delete-user/' + ${user.id}}" method="post" style="display:inline;">
+                            <button class="btn btn-sm btn-danger" type="submit">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Тарифные планы -->
+        <div class="tab-pane fade" id="plans" role="tabpanel">
+            <div class="d-flex justify-content-end mb-2">
+                <a href="/admin/phone-plans/add" class="btn btn-success btn-sm">Добавить тариф</a>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th><th>Название</th><th>Цена</th><th>Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="plan : ${phonePlans}">
+                    <td th:text="${plan.id}"></td>
+                    <td th:text="${plan.name}"></td>
+                    <td th:text="${plan.price}"></td>
+                    <td>
+                        <a th:href="@{'/admin/phone-plans/edit/' + ${plan.id}}" class="btn btn-sm btn-primary">Редактировать</a>
+                        <form th:action="@{'/admin/phone-plans/delete/' + ${plan.id}}" method="post" style="display:inline;">
+                            <button class="btn btn-sm btn-danger" type="submit">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Номера -->
+        <div class="tab-pane fade" id="numbers" role="tabpanel">
+            <div class="d-flex justify-content-end mb-2">
+                <a href="/admin/phone-numbers/add" class="btn btn-success btn-sm">Добавить номер</a>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th><th>Номер</th><th>Имя</th><th>Фамилия</th><th>План</th><th>Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="number : ${phoneNumbers}">
+                    <td th:text="${number.id}"></td>
+                    <td th:text="${number.number}"></td>
+                    <td th:text="${number.ownerFirstname}"></td>
+                    <td th:text="${number.ownerLastname}"></td>
+                    <td th:text="${number.phonePlan.name}"></td>
+                    <td>
+                        <a th:href="@{'/admin/phone-numbers/edit/' + ${number.id}}" class="btn btn-sm btn-primary">Редактировать</a>
+                        <form th:action="@{'/admin/phone-numbers/delete/' + ${number.id}}" method="post" style="display:inline;">
+                            <button class="btn btn-sm btn-danger" type="submit">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <a href="/logout" class="btn btn-link mt-3">Выйти</a>
+</div>
+</body>
+</html>

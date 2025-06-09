@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Пользователь</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+        }
+
+        .user-container {
+            margin-top: 50px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 700px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #000000;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #cccccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #e0e0e0;
+        }
+
+        .logout-link {
+            margin-top: 20px;
+            display: inline-block;
+            color: #1797ff;
+            text-decoration: none;
+        }
+
+        .logout-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="user-container">
+    <h2>Пользователь</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название тарифного плана</th>
+            <th>Цена плана</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="phonePlan : ${phonePlans}">
+            <td th:text="${phonePlan.id}"></td>
+            <td th:text="${phonePlan.name}"></td>
+            <td th:text="${phonePlan.price}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/logout" class="logout-link">Выйти</a>
+</div>
+</body>
+</html> 

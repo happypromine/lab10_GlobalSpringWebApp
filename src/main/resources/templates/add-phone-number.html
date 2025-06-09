@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавить номер</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Добавить номер</h2>
+    <form th:action="@{/admin/phone-numbers/add}" th:object="${phoneNumber}" method="post">
+        <div class="mb-3">
+            <label>Номер</label>
+            <input class="form-control" th:field="*{number}" required />
+        </div>
+        <div class="mb-3">
+            <label>Имя владельца</label>
+            <input class="form-control" th:field="*{ownerFirstname}" required />
+        </div>
+        <div class="mb-3">
+            <label>Фамилия владельца</label>
+            <input class="form-control" th:field="*{ownerLastname}" required />
+        </div>
+        <div class="mb-3">
+            <label>Тариф</label>
+            <select class="form-select" name="planId" required>
+                <option th:each="plan : ${phonePlans}" th:value="${plan.id}" th:text="${plan.name}"></option>
+            </select>
+        </div>
+        <button class="btn btn-primary">Сохранить</button>
+        <a href="/admin" class="btn btn-secondary">Назад</a>
+    </form>
+</div>
+</body>
+</html>
